@@ -96,6 +96,12 @@ class App extends Component {
     }))
   }
 
+  setPlantForm(plantItem) {
+    this.setState({
+      formData: plantItem
+    })
+  }
+
   
   render(){
   return (

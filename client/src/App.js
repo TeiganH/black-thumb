@@ -26,7 +26,15 @@ class App extends Component {
     }
   }
 
-  
+  handleFormChange(e) {
+    this.setState({
+      formData: {
+        name: e.target.value
+      }
+    })
+  }
+
+ 
 
   
   render(){

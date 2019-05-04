@@ -62,6 +62,13 @@ class App extends Component {
     localStorage.setItem("jwt", token.jwt)
   }
 
+  handleLogout() {
+    localStorage.clear()
+    this.setState({
+      currentUser: null
+    })
+  }
+
   
   render(){
   return (

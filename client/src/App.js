@@ -81,6 +81,14 @@ class App extends Component {
     this.setState({ plantItem })
   }
 
+  async addPlant() {
+    const newPlant = await postPlant(this.state.formData)
+    this.setState(prevState => ({
+      plant: [...prevState.plant, newPlant],
+      formData: {name: ''}
+    }))
+  }
+
   
   render(){
   return (

@@ -117,6 +117,15 @@ class App extends Component {
         <Link to ='/'>
         <h1>Black Thumb</h1>
         </Link>
+        {this.state.currentUser 
+        ?
+          <div>
+            <p>Hi {this.state.currentUser.username}</p>
+            <button onClick={this.handleLogout}>Logout</button>
+          </div>
+        : 
+        <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
+        }
       </header>
       
     </div>

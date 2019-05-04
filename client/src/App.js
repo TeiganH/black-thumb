@@ -34,6 +34,20 @@ class App extends Component {
     })
   }
 
+  // ----------- calls for auth --------------
+
+  handleAuthChange(e) {
+    const {name, value} = e.target
+    this.setState(prevState => (
+      {
+        authForm: {
+          ...prevState.authForm,
+          [name]: value
+        }
+      }
+    ))
+  }
+
  
 
   

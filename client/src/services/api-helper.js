@@ -64,3 +64,15 @@ export const loginUser = (loginData) => {
 		.catch(e => e)
 }
 
+export const registerUser = (registerData) => {
+	const opts= {
+		method: 'POST',
+		body: JSON.stringify({user: registerData}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}
+	return fetch(`${baseURL}/users`, opts)
+		.then(resp => resp.json())
+		.catch(e => e)
+}

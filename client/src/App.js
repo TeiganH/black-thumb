@@ -102,6 +102,13 @@ class App extends Component {
     })
   }
 
+  async deletePlant(plantItem) {
+    await destroyPlant(plantItem.id)
+    this.setState(prevState => {
+      plant: prevState.plant.filter(el => el.id != plantItem.id)
+    })
+  }
+
   
   render(){
   return (

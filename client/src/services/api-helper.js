@@ -40,3 +40,14 @@ export const putPlant = (id, item) => {
     .catch(e => e)
 }
 
+export const destroyPlant = (id) => {
+	const opts = {
+		method: 'DELETE',
+		headers: {
+			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+		}
+	}
+	return fetch(`${baseURL}/plants/${id}`, opts)
+		.catch(e => e)
+}
+

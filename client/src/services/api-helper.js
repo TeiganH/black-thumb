@@ -51,3 +51,16 @@ export const destroyPlant = (id) => {
 		.catch(e => e)
 }
 
+export const loginUser = (loginData) => {
+	const opts = {
+		method: 'POST',
+		body: JSON.stringify({auth: loginData}),
+		headers: {
+			'Content-Type': `application/json`,
+		}
+	}
+	return fetch(`${baseURL}/user_token`, opts)
+		.then(resp => resp.json())
+		.catch(e => e)
+}
+

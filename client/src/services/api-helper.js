@@ -6,3 +6,9 @@ export const showPlants = () => {
     .catch(e =>e)
 }
 
+export const showPlantItem = (id) => {
+  return fetch(`${baseURL}/plants/${id}`)
+    .then(resp => resp.json())
+    .catch(e => e)
+}
+

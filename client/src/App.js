@@ -69,6 +69,13 @@ class App extends Component {
     })
   }
 
+  //--------- Calls for data ------
+
+  async getPlant() {
+    const plant = await showPlants()
+    this.setState({ plant })
+  }
+
   
   render(){
   return (

@@ -76,6 +76,11 @@ class App extends Component {
     this.setState({ plant })
   }
 
+  async getPlantItem(id) {
+    const plantItem = await showPlantItem(id)
+    this.setState({ plantItem })
+  }
+
   
   render(){
   return (

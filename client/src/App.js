@@ -149,6 +149,21 @@ class App extends Component {
         />
       )} />
 
+      <Link to="/plants">Plants</Link>
+
+      <Route exact path="/plants" render={()=>(
+        <showPlants
+          plant={this.state.plant}
+          getPlantItem={this.getPlantItem}
+          handleSubmit={this.addPlant}
+          handleChange={this.handleFormChange}
+          updatePlant={this.updatePlant}
+          formData={this.state.formData}
+          setPlantForm={this.setPlantForm}
+          deletePlant={this.deletePlant} 
+        />
+      )} />
+
       
     </div>
   );

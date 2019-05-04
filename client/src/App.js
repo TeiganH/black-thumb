@@ -3,6 +3,7 @@ import {Route, Link} from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import './App.css';
 import {withRouter} from 'react-router'
+import {loginUser, registerUser, showPlants, showPlantItem, postPlant, putPlant, destroyPlant } from './services/api-helper'
 import decode from 'jwt-decode'
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
   this.handleFormChange = this.handleFormChange.bind(this)
   this.updatePlant = this.updatePlant.bind(this)
   this.setPlantForm = this.setPlantForm.bind(this)
-  thisdeletePlant = this.deletePlant.bind(this)
+  this.deletePlant = this.deletePlant.bind(this)
   }
 
   componentDidMount () {

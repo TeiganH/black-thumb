@@ -26,3 +26,17 @@ export const postPlant = (item) => {
     .catch(e =>e)
 }
 
+export const putPlant = (id, item) => {
+  const opts = {
+    method: 'PUT',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  return fetch(`$baseURL}/foods/${id}`, opts)
+    .then(resp => resp.json())
+    .catch(e => e)
+}
+

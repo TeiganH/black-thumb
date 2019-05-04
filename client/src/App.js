@@ -16,6 +16,18 @@ class App extends Component {
     }
   }
 
+  componentDidMount () {
+    const token = localStorage.getItem("jwt")
+    if (token) {
+      const userData = decode(token)
+      this.setState({
+        currentUser: userData
+      })
+    }
+  }
+
+  
+
   
   render(){
   return (

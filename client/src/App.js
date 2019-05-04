@@ -164,7 +164,12 @@ class App extends Component {
         />
       )} />
 
-      
+      <Route path="/plants/:id" render={()=>(
+        <showPlantItem  
+          plantItem={this.state.plantItem}
+        />  
+      )}/>
+
     </div>
   );
 }

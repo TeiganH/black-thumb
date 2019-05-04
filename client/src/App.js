@@ -48,7 +48,10 @@ class App extends Component {
     ))
   }
 
- 
+  async handleRegister() {
+    await registerUser(this.state.authForm)
+    this.handleLogin()
+  }
 
   
   render(){

@@ -89,6 +89,13 @@ class App extends Component {
     }))
   }
 
+  async updatePlant(plantItem) {
+    const updatedPlantItem = await putPlant(plantItem.id, this.state.formData)
+    this.setState(prevState => ({
+      plant: prevState.plant.map(el => el.id === plantItem.id ? updatedPlantItem : el) 
+    }))
+  }
+
   
   render(){
   return (

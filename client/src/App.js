@@ -53,6 +53,15 @@ class App extends Component {
     this.handleLogin()
   }
 
+  async handleLogin(){
+    const token = await loginUser(this.state.authForm)
+    const userData = decode(token.jwt)
+    this.setState({
+      currentUser: userData
+    })
+    localStorage.setItem("jwt", token.jwt)
+  }
+
   
   render(){
   return (

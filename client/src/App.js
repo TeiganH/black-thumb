@@ -114,9 +114,11 @@ class App extends Component {
   return (
     <div className="App">
       <header>
+        
         <Link to ='/'>
         <h1>Black Thumb</h1>
         </Link>
+
         {this.state.currentUser 
         ?
           <div>
@@ -126,7 +128,18 @@ class App extends Component {
         : 
         <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
         }
+
       </header>
+
+      <Route path="/register" render={()=>(
+        <AuthForm 
+          authFormTitle="Register"
+          handleSubmit={this.handleRegister}
+          handleChange={this.handleAuthChange}
+          authForm={this.state.authForm}
+        />  
+      )} />
+
       
     </div>
   );

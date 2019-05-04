@@ -140,6 +140,15 @@ class App extends Component {
         />  
       )} />
 
+      <Route path ="/login" render={()=>(
+        <AuthForm
+          authFormTitle="Login"
+          handleSubmit={this.handleLogin}
+          handleChange={this.handleAuthChange}
+          authForm={this.state.authForm}
+        />
+      )} />
+
       
     </div>
   );

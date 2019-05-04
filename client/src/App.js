@@ -14,6 +14,19 @@ class App extends Component {
       formData: {name: ''},
       plant: [],
     }
+  
+
+  //------ Bindings -------
+  this.handleAuthChange = this.handleAuthChange.bind(this)
+  this.handleLogin = this.handleLogin.bind(this)
+  this.handleRegister = this.handleRegister.bind(this)
+  this.handleLogout = this.handleLogout.bind(this)
+  this.getPlantItem = this.getPlantItem.bind(this)
+  this.addPlant = this.addPlant.bind(this)
+  this.handleFormChange = this.handleFormChange.bind(this)
+  this.updatePlant = this.updatePlant.bind(this)
+  this.setPlantForm = this.setPlantForm.bind(this)
+  thisdeletePlant = this.deletePlant.bind(this)
   }
 
   componentDidMount () {

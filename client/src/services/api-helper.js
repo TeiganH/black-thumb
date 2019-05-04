@@ -12,3 +12,17 @@ export const showPlantItem = (id) => {
     .catch(e => e)
 }
 
+export const postPlant = (item) => {
+  const opts = {
+    method: 'POST',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  return fetch(`${baseURL}/foods/`, opts)
+    .then(resp => resp.json())
+    .catch(e =>e)
+}
+

@@ -26,7 +26,11 @@ class PlantsController < ApplicationController
 
   # PATCH/PUT /plants/1
   def update
-    if @plant.update(plant_params)
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @user.plants << @plant
+      render json: @user, include: :plants
+    elsif @plant.update(plant_params)
       render json: @plant
     else
       render json: @plant.errors, status: :unprocessable_entity

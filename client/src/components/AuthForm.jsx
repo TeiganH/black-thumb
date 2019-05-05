@@ -10,8 +10,8 @@ export default function AuthForm(props) {
         e.preventDefault()
         handleSubmit()
       }}>
-        <input name="email" type="text" value={authForm.email} onChange={handleChange}/>
-        <input name="password" type="password" value={authForm.password} onChange={handleChange}/>
+        Username: <input autoComplete="username" name="username" type="text" value={authForm.username} onChange={handleChange} />&nbsp;
+        Password: <input autoComplete="current-password" name="password" type="password" value={authForm.password} onChange={handleChange}/>
         <button>Submit</button>
       </form>
       { 

@@ -21,7 +21,7 @@ export const postPlant = (item) => {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
   }
-  return fetch(`${baseURL}/foods/`, opts)
+  return fetch(`${baseURL}/plants/`, opts)
     .then(resp => resp.json())
     .catch(e =>e)
 }
@@ -35,7 +35,7 @@ export const putPlant = (id, item) => {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
   }
-  return fetch(`$baseURL}/foods/${id}`, opts)
+  return fetch(`$baseURL}/plants/${id}`, opts)
     .then(resp => resp.json())
     .catch(e => e)
 }

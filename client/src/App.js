@@ -11,7 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       currentUser: null,
-      authForm: { username: '', email: '', password: ''},
+      authForm: { username: '', password: ''},
       formData: {name: ''},
       plant: [],
     }
@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   componentDidMount () {
+    this.getPlant()
     const token = localStorage.getItem("jwt")
     if (token) {
       const userData = decode(token)
@@ -119,7 +120,7 @@ class App extends Component {
   async deletePlant(plantItem) {
     await destroyPlant(plantItem.id)
     this.setState(prevState => {
-      plant: prevState.plant.filter(el => el.id != plantItem.id)
+      plant: prevState.plant.filter(el => el.id !== plantItem.id)
     })
   }
 

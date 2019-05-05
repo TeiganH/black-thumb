@@ -1,42 +1,56 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {Route, Link} from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import './App.css';
 import {withRouter} from 'react-router'
 import {loginUser, registerUser, showPlants, showPlantItem, postPlant, putPlant, destroyPlant } from './services/api-helper'
 import decode from 'jwt-decode'
+// import Login from './components/Login'
+// import Register from './components/Register'
+import ShowPlants from './components/ShowPlants'
+import PlantItem from './components/PlantItem'
+
+
 
 class App extends Component {
   constructor(props){
     super(props)
+
     this.state = {
       currentUser: null,
-      authForm: { username: '', password: ''},
-      formData: {name: ''},
       plant: [],
+      plantItem: [],
+      formData: { name: '' },
+      authForm: { email: '', password: ''}
     }
   
 
   //------ Bindings -------
+  this.handleLoginButton = this.handleLoginButton.bind(this)
+  this.getPlant = this.getPlant.bind(this)
+  this.handleFormChange = this.handleFormChange.bind(this)
   this.handleAuthChange = this.handleAuthChange.bind(this)
-  this.handleLogin = this.handleLogin.bind(this)
   this.handleRegister = this.handleRegister.bind(this)
+  this.handleLogin = this.handleLogin.bind(this)
   this.handleLogout = this.handleLogout.bind(this)
   this.getPlantItem = this.getPlantItem.bind(this)
   this.addPlant = this.addPlant.bind(this)
-  this.handleFormChange = this.handleFormChange.bind(this)
   this.updatePlant = this.updatePlant.bind(this)
   this.setPlantForm = this.setPlantForm.bind(this)
   this.deletePlant = this.deletePlant.bind(this)
   }
 
+  handleLoginButton() {
+    this.props.history.push("/login")
+  }
+
   componentDidMount () {
     this.getPlant()
-    const token = localStorage.getItem("jwt")
-    if (token) {
-      const userData = decode(token)
+    const checkUser = localStorage.getItem("jwt")
+    if (checkUser) {
+      const user = decode(checkUser)
       this.setState({
-        currentUser: userData
+        currentUser: user
       })
     }
   }
@@ -53,14 +67,12 @@ class App extends Component {
 
   handleAuthChange(e) {
     const {name, value} = e.target
-    this.setState(prevState => (
-      {
+    this.setState(prevState => ({
         authForm: {
           ...prevState.authForm,
           [name]: value
         }
-      }
-    ))
+      }))
   }
 
   async handleRegister() {
@@ -119,76 +131,66 @@ class App extends Component {
 
   async deletePlant(plantItem) {
     await destroyPlant(plantItem.id)
-    this.setState(prevState => {
+    this.setState(prevState => ({
       plant: prevState.plant.filter(el => el.id !== plantItem.id)
-    })
+    }))
   }
 
   
   render(){
-  return (
-    <div className="App">
-      <header>
+    return (
+      <div className="App">
+        <header>
         
-        <Link to ='/'>
-        <h1>Black Thumb</h1>
-        </Link>
+          <Link to ='/'><h1>Black Thumb</h1></Link>
 
-        {this.state.currentUser 
-        ?
-          <div>
-            <p>Hi {this.state.currentUser.username}</p>
-            <button onClick={this.handleLogout}>Logout</button>
-          </div>
-        : 
-        <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
-        }
+          {this.state.currentUser 
+            ?
+            <div>
+              <h3>Hi {this.state.currentUser.email}</h3>
+              <button onClick={this.handleLogout}>Logout</button>
+              {/* <Link to="/plants">View All Plants</Link> */}
+            </div>
+            : 
+            <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
+          }
 
-      </header>
+        </header>
 
-      <Route path="/register" render={()=>(
-        <AuthForm 
-          authFormTitle="Register"
-          handleSubmit={this.handleRegister}
-          handleChange={this.handleAuthChange}
-          authForm={this.state.authForm}
-        />  
-      )} />
+        <Route exact path ="/login" render={()=>(
+          <AuthForm
+            authFormTitle="Login"
+            handleSubmit={this.handleLogin}
+            handleChange={this.handleAuthChange}
+            authForm={this.state.authForm} />)} />
 
-      <Route path ="/login" render={()=>(
-        <AuthForm
-          authFormTitle="Login"
-          handleSubmit={this.handleLogin}
-          handleChange={this.handleAuthChange}
-          authForm={this.state.authForm}
-        />
-      )} />
+        <Route exact path="/register" render={()=>(
+          <AuthForm 
+            authFormTitle="Register"
+            handleSubmit={this.handleRegister}
+            handleChange={this.handleAuthChange}
+            authForm={this.state.authForm} /> )} />
+        <p></p>
+        <Link to="/plants">Plants</Link>
+        <hr></hr>
 
-      <Link to="/plants">Plants</Link>
+          <Route exact path="/plants" render={()=>(
+            <ShowPlants
+              plants={this.state.plant}
+              getPlantItem={this.getPlantItem}
+              handleSubmit={this.addPlant}
+              handleChange={this.handleFormChange}
+              updatePlant={this.updatePlant}
+              formData={this.state.formData}
+              setPlantForm={this.setPlantForm}
+              deletePlant={this.deletePlant} /> )} />
 
-      <Route exact path="/plants" render={()=>(
-        <showPlants
-          plant={this.state.plant}
-          getPlantItem={this.getPlantItem}
-          handleSubmit={this.addPlant}
-          handleChange={this.handleFormChange}
-          updatePlant={this.updatePlant}
-          formData={this.state.formData}
-          setPlantForm={this.setPlantForm}
-          deletePlant={this.deletePlant} 
-        />
-      )} />
-
-      <Route path="/plants/:id" render={()=>(
-        <showPlantItem  
-          plantItem={this.state.plantItem}
-        />  
-      )}/>
-
-    </div>
-  );
-}
-
+          <Route path="/plants/:id" render={()=>(
+            <PlantItem  
+              plantItem={this.state.plantItem} /> )}/>
+      </div>
+    )
+  }
 }
 
 export default withRouter(App)

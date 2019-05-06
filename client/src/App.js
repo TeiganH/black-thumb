@@ -38,7 +38,8 @@ class App extends Component {
   this.updatePlant = this.updatePlant.bind(this)
   this.setPlantForm = this.setPlantForm.bind(this)
   this.deletePlant = this.deletePlant.bind(this)
-  }
+  this.dropChange = this.dropChange.bind(this)
+}
 
   handleLoginButton() {
     this.props.history.push("/login")
@@ -62,6 +63,10 @@ class App extends Component {
       }
     })
   }
+
+  // code from https://codesandbox.io/s/w031p82nr5
+  dropChange(e) {
+    this.props.history.push(`${e.target.value}`)}
 
   // ----------- calls for auth --------------
 
@@ -183,7 +188,9 @@ class App extends Component {
               updatePlant={this.updatePlant}
               formData={this.state.formData}
               setPlantForm={this.setPlantForm}
-              deletePlant={this.deletePlant} /> )} />
+              deletePlant={this.deletePlant}
+              dropChange={this.dropChange}
+               /> )} />
 
           <Route path="/plants/:id" render={()=>(
             <PlantItem  

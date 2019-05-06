@@ -17,8 +17,8 @@ class PlantItem extends Component {
           <div>
             <h1>{this.props.plantItem.name}</h1>
             <h2>{this.props.plantItem.scientific_name}</h2>
+            <h3>{this.props.plantItem.description}</h3> 
             {/* <div>{}</div> plant image  */}
-            {/* <div>{}</div> plant description */}
             {/* Post MVP selector for plant condition for diagnosis.}
 
 

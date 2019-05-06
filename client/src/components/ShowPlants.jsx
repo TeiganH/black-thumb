@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import DropDown from './DropDown'
+
 
 // I wanted to show a different style of doing forms in this component
 // I used terinaries to show in-line edit forms in place the mapped food item.
@@ -28,13 +30,14 @@ class ShowPlants extends Component {
                   this.props.updatePlant(plant);
                   this.setState({
                     isEdit: false
-                  });
-                }}>
+                  })}}>
+
                   <input
                     name="name"
                     type="text"
                     value={this.props.formData.name}
-                    onChange={this.props.handleFormChange} />
+                    onChange={this.props.handleFormChange} 
+                  />
                   <button>Submit</button>
                 </form>
               </div>
@@ -51,7 +54,8 @@ class ShowPlants extends Component {
                   this.setState({
                     isEdit: plant.id
                   })
-                }}>Edit</button>&nbsp;
+                }}>Edit
+                </button>&nbsp;
                 <button onClick={() => { this.props.deletePlant(plant) }}>Delete</button>
                 </p>
               </div>
@@ -68,14 +72,14 @@ class ShowPlants extends Component {
             <form onSubmit={(e) => {
               e.preventDefault();
               this.props.handleSubmit();
-              this.setState({ isAdd: false })
-            }}>
-              <input
-                name="name"
-                type="text"
-                value={this.props.formData.name}
-                onChange={this.props.handleChange} />
-              <button>Submit</button>
+              this.setState({ isAdd: false })}}>
+              <>
+                {/* code from https://codesandbox.io/s/w031p82nr5 */}
+                  <DropDown dropChange={this.props.dropChange} formData={this.props.formData}/>
+     
+
+                <button>Submit</button>
+              </>
             </form>
           </div>
           :
@@ -89,3 +93,4 @@ class ShowPlants extends Component {
 }
 
 export default ShowPlants;
+

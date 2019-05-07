@@ -2,14 +2,16 @@ const baseURL = "http://localhost:3000"
 
 export const showPlants = () => {
   return fetch(`${baseURL}/plants`)
-    .then(resp => resp.json())
-    .catch(e =>e)
+    .then(resp => {
+      return resp.json()
+    })
+    .catch(e => console.log(e))
 }
 
 export const showPlantItem = (id) => {
   return fetch(`${baseURL}/plants/${id}`)
     .then(resp => resp.json())
-    .catch(e => e)
+    .catch(e => console.log(e))
 }
 
 export const postPlant = (item) => {
@@ -35,20 +37,45 @@ export const putPlant = (id, item) => {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
   }
-  return fetch(`$baseURL}/plants/${id}`, opts)
+  return fetch(`${baseURL}/plants/${id}`, opts)
     .then(resp => resp.json())
     .catch(e => e)
 }
 
-export const destroyPlant = (id) => {
-	const opts = {
-		method: 'DELETE',
-		headers: {
-			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-		}
-	}
-	return fetch(`${baseURL}/plants/${id}`, opts)
-		.catch(e => e)
+// export const destroyPlant = (id) => {
+// 	const opts = {
+// 		method: 'DELETE',
+// 		headers: {
+// 			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+// 		}
+// 	}
+// 	return fetch(`${baseURL}/plants/${id}`, opts)
+// 		.catch(e => e)
+// }
+
+export const putUserPlant = (user_id, id) => {
+  const opts = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  return fetch(`${baseURL}/users/${user_id}/plants/${id}`, opts)
+  .then(resp => resp.json())
+  .catch(e =>e)
+}
+
+export const showUserPlants = (user_id) => {
+  return fetch(`${baseURL}/users/${user_id}/plants`)
+    .then(resp => resp.json())
+    .catch(e =>e)
+}
+
+export const showUserOnePlant = (user_id, id) => {
+  return fetch(`${baseURL}/users/${user_id}/plants/${id}`)
+    .then(resp => resp.json())
+    .catch(e => e)
 }
 
 export const loginUser = (loginData) => {

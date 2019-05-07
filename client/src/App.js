@@ -3,13 +3,12 @@ import {Route, Link} from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import './App.css';
 import {withRouter} from 'react-router'
-import {loginUser, registerUser, showPlants, showPlantItem, postPlant, putPlant, destroyPlant } from './services/api-helper'
+import {loginUser, registerUser, showPlants, showPlantItem, showUserOnePlant, postPlant, putPlant, putUserPlant, showUserPlants } from './services/api-helper'
 import decode from 'jwt-decode'
-// import Login from './components/Login'
-// import Register from './components/Register'
-import ShowPlants from './components/ShowPlants'
-import PlantItem from './components/PlantItem'
-
+import UserPlants from './components/UserPlants'
+import AllPlants from './components/AllPlants'
+// import PlantItem from './components/PlantItem'
+import DropDown from './components/DropDown'
 
 
 class App extends Component {
@@ -18,27 +17,34 @@ class App extends Component {
 
     this.state = {
       currentUser: null,
-      plant: [],
-      plantItem: [],
+      allPlants: [],
+      plants: [],
+      userPlants: [],
+      plantItem: null,
+      userPlant: null,
       formData: { name: '' },
-      authForm: { email: '', password: ''}
+      authForm: { email: '', password: ''},
+      selectedPlant: "Parlor Palm"
     }
   
 
   //------ Bindings -------
   this.handleLoginButton = this.handleLoginButton.bind(this)
   this.getPlant = this.getPlant.bind(this)
-  this.handleFormChange = this.handleFormChange.bind(this)
-  this.handleAuthChange = this.handleAuthChange.bind(this)
-  this.handleRegister = this.handleRegister.bind(this)
-  this.handleLogin = this.handleLogin.bind(this)
-  this.handleLogout = this.handleLogout.bind(this)
   this.getPlantItem = this.getPlantItem.bind(this)
   this.addPlant = this.addPlant.bind(this)
   this.updatePlant = this.updatePlant.bind(this)
+  // this.deletePlant = this.deletePlant.bind(this)
+  this.handleLogin = this.handleLogin.bind(this)
+  this.handleLogout = this.handleLogout.bind(this)
+  this.handleRegister = this.handleRegister.bind(this)
+  this.handleAuthChange = this.handleAuthChange.bind(this)
+  this.handleFormChange = this.handleFormChange.bind(this)
   this.setPlantForm = this.setPlantForm.bind(this)
-  this.deletePlant = this.deletePlant.bind(this)
-  this.dropChange = this.dropChange.bind(this)
+  this.plantForm = this.plantForm.bind(this)
+  this.addPlantToUser = this.addPlantToUser.bind(this)
+  this.getUserPlants = this.getUserPlants.bind(this)
+  this.getUserOnePlant = this.getUserOnePlant.bind(this)
 }
 
   handleLoginButton() {
@@ -50,6 +56,7 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt")
     if (checkUser) {
       const user = decode(checkUser)
+      this.getUserPlants(user.sub)
       this.setState({
         currentUser: user
       })
@@ -63,10 +70,7 @@ class App extends Component {
       }
     })
   }
-
-  // code from https://codesandbox.io/s/w031p82nr5
-  dropChange(e) {
-    this.props.history.push(`${e.target.value}`)}
+    
 
   // ----------- calls for auth --------------
 
@@ -88,6 +92,7 @@ class App extends Component {
   async handleLogin(){
     const token = await loginUser(this.state.authForm)
     const userData = decode(token.jwt)
+    this.getUserPlants(userData.sub)
     this.setState({
       currentUser: userData
     })
@@ -104,8 +109,8 @@ class App extends Component {
   //--------- Calls for data ------
 
   async getPlant() {
-    const plant = await showPlants()
-    this.setState({ plant })
+    const allPlants = await showPlants()
+    this.setState({ allPlants })
   }
 
   async getPlantItem(id) {
@@ -113,10 +118,29 @@ class App extends Component {
     this.setState({ plantItem })
   }
 
+  async getUserOnePlant(plant_id) {
+    const userPlant = await showUserOnePlant(this.state.currentUser.id, plant_id);
+    this.setState({userPlant})
+  }
+  
+  async getUserPlants(userId) {
+    const saveUserPlant = await showUserPlants(userId)
+    this.setState({
+      userPlants: saveUserPlant
+    })
+  }
+    async addPlantToUser() {
+      const newPlant = this.state.allPlants.find(plant => plant.name === this.state.selectedPlant)
+      const newUserItem = await putUserPlant(this.state.currentUser.sub, newPlant.id)
+      this.setState({
+        plants: newUserItem
+      })
+    }
+
   async addPlant() {
     const newPlant = await postPlant(this.state.formData)
     this.setState(prevState => ({
-      plant: [...prevState.plant, newPlant],
+      plants: [...prevState.plant, newPlant],
       formData: {name: ''}
     }))
   }
@@ -124,7 +148,7 @@ class App extends Component {
   async updatePlant(plantItem) {
     const updatedPlantItem = await putPlant(plantItem.id, this.state.formData)
     this.setState(prevState => ({
-      plant: prevState.plant.map(el => el.id === plantItem.id ? updatedPlantItem : el) 
+      plants: prevState.plant.map(el => el.id === plantItem.id ? updatedPlantItem : el) 
     }))
   }
 
@@ -134,33 +158,78 @@ class App extends Component {
     })
   }
 
-  async deletePlant(plantItem) {
-    await destroyPlant(plantItem.id)
-    this.setState(prevState => ({
-      plant: prevState.plant.filter(el => el.id !== plantItem.id)
-    }))
-  }
+  // async deletePlant(plantItem) {
+  //   await destroyPlant(plantItem.id)
+  //   this.setState(prevState => ({
+  //     plants: prevState.plant.filter(el => el.id !== plantItem.id)
+  //   }))
+  // }
 
+
+
+  plantForm(e) {
+    this.setState({
+      selectedPlant: e.target.value
+    })
+  }
   
   render(){
     return (
       <div className="App">
         <header>
-        
+        <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
           <Link to ='/'><h1>Black Thumb</h1></Link>
+          <>
+              <br /><br />
+              <Link to="/plants">View All Plants</Link>
+              <Route exact path="/plants" render={()=>(
+                  <AllPlants 
+                    allPlants={this.state.allPlants}
+                  />
+                  )} />
+              </>
 
-          {this.state.currentUser 
-            ?
-            <div>
-              <h3>Hi {this.state.currentUser.email}</h3>
-              <button onClick={this.handleLogout}>Logout</button>
-              {/* <Link to="/plants">View All Plants</Link> */}
-            </div>
-            : 
-            <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
+          {this.state.currentUser &&
+            
+              <div>
+                <h3>Hi {this.state.currentUser.email}</h3>
+                
+                <button onClick={this.handleLogout}>Logout</button>
+                <br /><br />
+                {/* <Link to="/u">View All Plants</Link>
+                &nbsp; */}
+                <hr />
+                Your plants
+                <br /><br />
+                {/* <Route exact path="/plants" render={()=>( */}
+                  <UserPlants 
+                    plants={this.state.plants}
+                    userPlant={this.state.userPlant}
+                    formData={this.state.formData}
+                    getPlantItem={this.getPlantItem}
+                    deletePlant={this.deletePlant}
+                    handleSubmit={this.addPlant}
+                    handleChange={this.handleFormChange}
+                    setPlantForm={this.setPlantForm}
+                    updatePlant={this.updatePlant}
+                    userPlants={this.state.userPlants}
+                    getUserOnePlant={this.getUserOnePlant}
+                    currentUser={this.state.currentUser}
+                     />
+
+
+                <DropDown 
+                  plantItem={this.state.plantItem}
+                  selectedPlant={this.state.selectedPlant}
+                  handleChange={this.plantForm}
+                  addPlantToUser={this.addPlantToUser}
+                  allPlants={this.state.allPlants} /> 
+                  
+                  </div>
           }
 
         </header>
+
 
         <Route exact path ="/login" render={()=>(
           <AuthForm
@@ -175,26 +244,7 @@ class App extends Component {
             handleSubmit={this.handleRegister}
             handleChange={this.handleAuthChange}
             authForm={this.state.authForm} /> )} />
-        <p></p>
-        <Link to="/plants">Plants</Link>
-        <hr></hr>
-
-          <Route exact path="/plants" render={()=>(
-            <ShowPlants
-              plants={this.state.plant}
-              getPlantItem={this.getPlantItem}
-              handleSubmit={this.addPlant}
-              handleChange={this.handleFormChange}
-              updatePlant={this.updatePlant}
-              formData={this.state.formData}
-              setPlantForm={this.setPlantForm}
-              deletePlant={this.deletePlant}
-              dropChange={this.dropChange}
-               /> )} />
-
-          <Route path="/plants/:id" render={()=>(
-            <PlantItem  
-              plantItem={this.state.plantItem} /> )}/>
+            
       </div>
     )
   }

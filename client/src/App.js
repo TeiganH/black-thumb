@@ -48,7 +48,7 @@ class App extends Component {
   this.getUserOnePlant = this.getUserOnePlant.bind(this)
   this.deleteUser = this.deleteUser.bind(this)
   this.handleUpdate = this.handleUpdate.bind(this)
-  this.removePlantFromUser = this.removePlantFromUser.bind(this)
+  // this.removePlantFromUser = this.removePlantFromUser.bind(this)
 }
 
   handleLoginButton() {
@@ -165,14 +165,14 @@ class App extends Component {
       }
     }
 
-    async removePlantFromUser(plant_id) {
-      const removePlant = await deletePlantFromUser(this.state.currentUser.sub, plant_id)
-      if (removePlant) {
-        this.setState(prevState=>({
-          userPlants: [...prevState.userPlants, removePlant]
-      }))
-      }
-    }
+    // async removePlantFromUser(plant_id) {
+    //   const removePlant = await deletePlantFromUser(this.state.currentUser.sub, plant_id)
+    //   if (removePlant) {
+    //     this.setState(prevState=>({
+    //       userPlants: [...prevState.userPlants, removePlant]
+    //   }))
+    //   }
+    // }
 
   setPlantForm(plantItem) {
     this.setState({
@@ -245,7 +245,7 @@ Your plants
                     userPlants={this.state.userPlants}
                     getUserOnePlant={this.getUserOnePlant}
                     currentUser={this.state.currentUser}
-                    removePlantFromUser={this.removePlantFromUser}
+                    // removePlantFromUser={this.removePlantFromUser}
                      />
 
 

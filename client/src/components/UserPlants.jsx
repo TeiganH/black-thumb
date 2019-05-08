@@ -26,13 +26,13 @@ class UserPlants extends Component {
 
 
 
-              <Link to={`/users/${this.props.currentUser.sub}/plants/${plant.id}`}
+              {/* <Link to={`/users/${this.props.currentUser.sub}/plants/${plant.id}`}
                 onClick={()=>
                   {this.props.removePlantFromUser(plant.id)
-                  // this.props.history.push(`users/${this.props.curentUser.sub}/plants`)
+                  this.props.history.push(`users/${this.props.curentUser.sub}/plants`)
                 }}>
                   Delete
-              </Link>  
+              </Link>   */}
 
 
 

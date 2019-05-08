@@ -17,7 +17,7 @@ class DropDown extends Component {
             {this.state.isAdd 
               ?
                 <div> 
-                  <select value={this.props.allPlants} onChange={this.props.handleChange}>
+                  <select value={this.props.selectedPlant} onChange={this.props.handleChange}>
                     {this.props.allPlants.map(plant => (
                       <option key={plant.id}>{plant.name}</option>
                     ))}

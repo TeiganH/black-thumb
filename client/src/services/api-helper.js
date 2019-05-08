@@ -1,5 +1,9 @@
 const baseURL = "http://localhost:3000"
 
+
+// ------- Plant API Helpers---------
+
+// ----- Show All Plants--------
 export const showPlants = () => {
   return fetch(`${baseURL}/plants`)
     .then(resp => {
@@ -8,54 +12,19 @@ export const showPlants = () => {
     .catch(e => console.log(e))
 }
 
+// ------ Show one Plant -------
 export const showPlantItem = (id) => {
   return fetch(`${baseURL}/plants/${id}`)
     .then(resp => resp.json())
     .catch(e => console.log(e))
 }
 
-export const postPlant = (item) => {
-  const opts = {
-    method: 'POST',
-    body: JSON.stringify(item),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    }
-  }
-  return fetch(`${baseURL}/plants/`, opts)
-    .then(resp => resp.json())
-    .catch(e =>e)
-}
+// ------- User/Plant connection api helper  ------
 
-export const putPlant = (id, item) => {
+// ------ Give user plant ------
+export const addUserPlant = (user_id, id) => {
   const opts = {
-    method: 'PUT',
-    body: JSON.stringify(item),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    }
-  }
-  return fetch(`${baseURL}/plants/${id}`, opts)
-    .then(resp => resp.json())
-    .catch(e => e)
-}
-
-// export const destroyPlant = (id) => {
-// 	const opts = {
-// 		method: 'DELETE',
-// 		headers: {
-// 			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-// 		}
-// 	}
-// 	return fetch(`${baseURL}/plants/${id}`, opts)
-// 		.catch(e => e)
-// }
-
-export const putUserPlant = (user_id, id) => {
-  const opts = {
-    method: 'PUT',
+    method: 'put',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
@@ -66,18 +35,41 @@ export const putUserPlant = (user_id, id) => {
   .catch(e =>e)
 }
 
+
+
+//----- Show User's plants ------
 export const showUserPlants = (user_id) => {
   return fetch(`${baseURL}/users/${user_id}/plants`)
     .then(resp => resp.json())
     .catch(e =>e)
 }
 
+// ----- Show only one plant of user -------
 export const showUserOnePlant = (user_id, id) => {
   return fetch(`${baseURL}/users/${user_id}/plants/${id}`)
     .then(resp => resp.json())
     .catch(e => e)
 }
 
+// ----- Delete plant from user -----
+export const deletePlantFromUser = (user_id, id) => {
+  const opts = {
+    method: 'PUT',
+    body: JSON.stringify(id),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  return fetch(`${baseURL}/users/${user_id}/plants/${id}`, opts)
+  .then(resp =>resp.json())
+  .catch(e => e)
+}
+
+
+//// -----------User api --------
+
+// ------ Login/Show user ------
 export const loginUser = (loginData) => {
 	const opts = {
 		method: 'POST',
@@ -91,10 +83,12 @@ export const loginUser = (loginData) => {
 		.catch(e => e)
 }
 
+//------ create user-------
+
 export const registerUser = (registerData) => {
 	const opts= {
 		method: 'POST',
-		body: JSON.stringify({user: registerData}),
+		body: JSON.stringify({ user: registerData}),
 		headers: {
 			'Content-Type': 'application/json'
 		}
@@ -103,3 +97,30 @@ export const registerUser = (registerData) => {
 		.then(resp => resp.json())
 		.catch(e => e)
 }
+
+// -------- Update User  -------
+export const putUser = (id, item) => {
+  const opts = {
+    method: 'PUT',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  return fetch(`${baseURL}/users/${id}`, opts)
+    .then(resp => resp.json())
+    .catch(e => e)
+}
+
+// --------delete user ----------
+export const destroyUser = (id) => {
+  	const opts = {
+  		method: 'DELETE',
+  		headers: {
+  			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+  		}
+  	}
+  	return fetch(`${baseURL}/users/${id}`, opts)
+  		.catch(e => e)
+  }

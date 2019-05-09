@@ -68,13 +68,10 @@ button:hover {
 }
 
 .select-style {
-  /* margin: 0 auto; */
   border: 1px solid #6F9065;
   width: 100px;
   border-radius: 5px;
   overflow: hidden;
-  /* background-color: #fff; */
-  /* background: #fff; */
   position: relative;
 }
 
@@ -143,7 +140,7 @@ h4 {
 
 .user-plant-container {
   width: 600px;
-  height: 20vw;
+  height: auto;
   margin-top: 50px;
   margin: 0 auto; 
 }
@@ -199,9 +196,6 @@ form {
 
 .dropdown {
   text-align: center;
-  /* width: 2px; */
-  /* height: 20vw; */
-  /* margin-top: 50px; */
   margin: 0 auto; 
 }
 

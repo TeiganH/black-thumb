@@ -3,8 +3,8 @@ import React from 'react'
 export default function UpdateForm(props) {
   const {handleChange, handleSubmit, authForm, updateFormTitle} = props
     return (
-    <div>
-      <h1>{updateFormTitle}</h1>
+      <div className="authform">
+      <h2>{updateFormTitle}</h2>
       <form onSubmit={(e)=>{
         e.preventDefault()
         handleSubmit()

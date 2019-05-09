@@ -1,22 +1,211 @@
-.App {
+
+@import url('https://fonts.googleapis.com/css?family=Akronim|Alef');
+
+@font-face {
+  font-family: 'Akronim', cursive;
+  font-family: 'Alef', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Akronim|Alef');
+}
+
+body {
+  font-family: 'Alef', sans-serif;
+  background-image: url("./plant.png");
+  background-position: bottom left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 400px;
+  color: black;
+  
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.login {
+  border-radius: 15px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-transform: uppercase;
+}
+
+
+
+.login:hover {
+  background-color: #6F9065;
+  color: white;
+}
+
+h1 {
+  font-family: 'Akronim', cursive;
+  font-weight: normal;
+  font-size: 70px;
+  text-align: center;
+}
+
+h3 {
   text-align: center;
 }
 
 
+button {
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: 11px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-transform: uppercase;
+  border: 1px solid #6F9065;
+}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button:hover {
+  background-color: #6F9065;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.select-style {
+  /* margin: 0 auto; */
+  border: 1px solid #6F9065;
+  width: 100px;
+  border-radius: 5px;
+  overflow: hidden;
+  /* background-color: #fff; */
+  /* background: #fff; */
+  position: relative;
 }
 
+.select-style:after {
+  top: 20%;
+  left: 75%;
+  border: solid transparent;
+  content: " ";
+  position: absolute;
+  border-top-color: #000000;
+  border-width: 5px;
+  z-index: 100;
+}
 
+.select-style select {
+  padding: 5px 8px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.select-style select:focus {
+  outline: none;
+}
+
+.allplants {
+  width: 500px;
+  margin: 0 auto;
+  
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 30px;
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+  text-transform: uppercase;
+  border: solid transparent;
+  content: " ";
+  border-top-color: #000000;
+  border-width: 5px;
+  z-index: 100;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.plantname {
+  text-transform: uppercase;
+}
+
+.plantscience {
+  font-style: italic;
+}
+
+.plant-container {
+  width: 600px;
+  height: 20vw;
+  margin-top: 50px; 
+}
+
+.user-plant-container {
+  width: 600px;
+  height: 20vw;
+  margin-top: 50px;
+  margin: 0 auto; 
+}
+
+.left-container {
+  float: left;
+  height: 20vw;
+  width: 30%;
+}
+
+.right-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 20vw;
+  background: #fff;
+  width: 70%;
+  float: left;
+}
+
+.left-content {
+  width: 100%;
+  height: 20vw;
+}
+
+.right-content {
+  max-width: 70%;
+}
+
+img {
+  height: 200px;
+}
+
+.authform {
+  text-align: center;
+}
+
+h4 {
+  margin-top: 50px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.userbuttons {
+  text-align: center;
+}
+
+.user-container {
+  text-align: center;
+}
+
+.dropdown {
+  text-align: center;
+  /* width: 2px; */
+  /* height: 20vw; */
+  /* margin-top: 50px; */
+  margin: 0 auto; 
+}
+
+.plantname {
+  text-align:center;
+  margin: 0 auto;
+}

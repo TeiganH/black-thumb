@@ -1,6 +1,6 @@
 class PlantsController < ApplicationController
   before_action :set_plant, only: %i[show update ]
-  # before_action :authenticate_user, only: %i[create update destroy]
+  before_action :authenticate_user, only: %i[create update destroy]
   
   # GET /plants
   def index
@@ -70,7 +70,7 @@ class PlantsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def plant_params
-      params.require(:plant).permit(:scientific_name, :name, :user_id)
+      params.require(:plant).permit(:scientific_name, :name, :user_id, :plant_image)
     end
 
 end

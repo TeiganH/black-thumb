@@ -9,14 +9,14 @@ class DropDown extends Component {
   
   render () {
     return (
-      <div>
+      <div className="dropdown">
         {
           this.props.allPlants
          &&
           <div>
             {this.state.isAdd 
               ?
-                <div> 
+                <div class="select-style"> 
                   <select value={this.props.selectedPlant} onChange={this.props.handleChange}>
                     {this.props.allPlants.map(plant => (
                       <option key={plant.id}>{plant.name}</option>
@@ -37,6 +37,9 @@ class DropDown extends Component {
     )
   }
 }
+
+
+
 
 
 export default DropDown

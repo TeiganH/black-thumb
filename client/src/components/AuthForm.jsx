@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 export default function AuthForm(props) {
   const {authForm, handleChange, handleSubmit, authFormTitle} = props
     return (
-    <div>
-      <h1>{authFormTitle}</h1>
+    <div className="authform">
+      <h2>{authFormTitle}</h2>
       <form onSubmit={(e)=>{
         e.preventDefault()
         handleSubmit()
@@ -15,11 +15,16 @@ export default function AuthForm(props) {
         Password: <input autoComplete="current-password" name="password" type="password" value={authForm.password} onChange={handleChange}/>
         <button>Submit</button>
       </form>
+  
       { 
+       
         authFormTitle === "Login" 
         && 
+        
         <Link to="/register">Register</Link>
-      }
+        
+     }
+
     </div>
   )
 }

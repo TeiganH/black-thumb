@@ -19,30 +19,31 @@ class UserPlants extends Component {
                   {this.props.getUserOnePlant(plant.id)
                   this.props.history.push(`users/${this.props.currentUser.sub}/plants/${plant.id}`)
                   }}>
-                    {plant.name}
+                    <div className="plantname">{plant.name}</div>
               </Link>
               &nbsp;&nbsp;&nbsp;
-              
-
-
-
-              {/* <Link to={`/users/${this.props.currentUser.sub}/plants/${plant.id}`}
-                onClick={()=>
-                  {this.props.removePlantFromUser(plant.id)
-                  this.props.history.push(`users/${this.props.curentUser.sub}/plants`)
-                }}>
-                  Delete
-              </Link>   */}
-
-
-
-
 
                 {this.props.userPlant&&plant.id===this.props.userPlant.id
                 ?
-                (<div>
-                    <p>{this.props.userPlant.description}</p>
-                  </div>)
+                (<div className="user-plant-container" key={plant.id}>
+                <div className="left-container">
+                    <div className="left-content">
+                        <img src={plant.plant_image} />
+                    </div>
+                </div>
+                <div className="right-container">
+                    <div className="right-content">
+                        <div className="plantname">{plant.name}</div>
+                        <hr />
+                        <div className="plantscience">{plant.scientific_name}</div>
+                        <br />
+                        <div className="plantdescription">{plant.description}</div>
+                        <br />
+                    </div>
+                </div>
+
+                <p></p>
+            </div>)
                 :
                 null}
               </div>
@@ -54,4 +55,5 @@ class UserPlants extends Component {
 }
 
 export default withRouter(UserPlants);
+
 

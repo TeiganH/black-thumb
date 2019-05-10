@@ -116,8 +116,7 @@ class App extends Component {
   async handleUpdate(currentUser) {
     const userData = await putUser(this.state.currentUser.sub, this.state.authForm)
     this.setState({
-      currentUser: userData
-      
+      currentUser: userData 
   })}
 
   handleLogout() {
@@ -191,8 +190,14 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-        <button onClick ={()=> this.props.history.push('/login')}>Login/Register</button>
-          <Link to ='/'><h1>Black Thumb</h1></Link>
+
+          <button className="login" onClick={()=> this.props.history.push('/login')}>
+            Login/Register
+          </button>
+
+          <h1>
+            <Link to ='/'>Black Thumb</Link>
+          </h1>
 
           <Route exact path ="/login" render={()=>(
           <AuthForm
@@ -221,33 +226,31 @@ class App extends Component {
               
               <div>
                 <h3>Hi {this.state.currentUser.email}</h3>
-                <button onClick={this.deleteUser}>Delete Yo'Self!</button>
-                <LinkButton to="/update">Update</LinkButton>
-                <button onClick={this.handleLogout}>Logout</button>
-               </div>
-          }
-
-        </header>
-        <div>
-
-Your plants
+                <div className="userbuttons">
+                  <button onClick={this.deleteUser}>Delete Yo'Self!</button>
+                  <LinkButton to="/update">Update</LinkButton>
+                  <button onClick={this.handleLogout}>Logout</button>
+                </div>
+                <h3>Your plants</h3>
                 <br /><br />
-                  <UserPlants 
-                    plants={this.state.plants}
-                    userPlant={this.state.userPlant}
-                    formData={this.state.formData}
-                    getPlantItem={this.getPlantItem}
-                    deletePlant={this.deletePlant}
-                    handleSubmit={this.addPlant}
-                    handleChange={this.handleFormChange}
-                    setPlantForm={this.setPlantForm}
-                    updatePlant={this.updatePlant}
-                    userPlants={this.state.userPlants}
-                    getUserOnePlant={this.getUserOnePlant}
-                    currentUser={this.state.currentUser}
-                    // removePlantFromUser={this.removePlantFromUser}
-                     />
-
+              
+                <div className="user-plant-container">
+                
+                <UserPlants 
+                  plants={this.state.plants}
+                  userPlant={this.state.userPlant}
+                  formData={this.state.formData}
+                  getPlantItem={this.getPlantItem}
+                  deletePlant={this.deletePlant}
+                  handleSubmit={this.addPlant}
+                  handleChange={this.handleFormChange}
+                  setPlantForm={this.setPlantForm}
+                  updatePlant={this.updatePlant}
+                  userPlants={this.state.userPlants}
+                  getUserOnePlant={this.getUserOnePlant}
+                  currentUser={this.state.currentUser}
+                  // removePlantFromUser={this.removePlantFromUser}
+                />
 
                 <DropDown 
                   plantItem={this.state.plantItem}
@@ -255,28 +258,26 @@ Your plants
                   handleChange={this.plantForm}
                   addPlantToUser={this.addPlantToUser}
                   allPlants={this.state.allPlants} /> 
-                  
-                  
-          
+                </div>
+              </div>
+          }
 
-              <>
-              <br /><br />
-              <Link to="/plants">View All Plants</Link>
-              <Route exact path="/plants" render={()=>(
-                  <AllPlants 
-                    allPlants={this.state.allPlants}
-                  />
-                  )} />
-              </>
-        </div>
-
-
+        </header>
         
+        <h4><Link className="allplantslink" to="/plants">View All Plants</Link></h4>
+        <Route exact path="/plants" render={()=>(
+            <AllPlants 
+              allPlants={this.state.allPlants}/>
+            )} />
 
-            
+
       </div>
+      
     )
   }
 }
+        
+
+
 
 export default withRouter(App)

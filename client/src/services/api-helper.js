@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:3000"
+const baseURL = "https://black-thumb.herokuapp.com/"
 
 
 // ------- Plant API Helpers---------
@@ -24,7 +24,7 @@ export const showPlantItem = (id) => {
 // ------ Give user plant ------
 export const addUserPlant = (user_id, id) => {
   const opts = {
-    method: 'put',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`

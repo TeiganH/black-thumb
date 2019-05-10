@@ -1,4 +1,4 @@
-const baseURL = "https://black-thumb.herokuapp.com/"
+const baseURL = "https://black-thumb.herokuapp.com"
 
 
 // ------- Plant API Helpers---------

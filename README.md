@@ -1,4 +1,8 @@
 # Black Thumb README
+
+## http://black-thumb.surge.sh/
+Find Black Thumb deployed and working on Surge!
+
 This site lists plants stored in a Ruby on Rails database and allows the user to assign specific plants to themselves.
 
 #### Post MVP

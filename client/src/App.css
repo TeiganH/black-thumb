@@ -73,6 +73,7 @@ button:hover {
   border-radius: 5px;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
 }
 
 .select-style:after {
@@ -124,9 +125,6 @@ h4 {
   margin: 0 auto;
 }
 
-.plantname {
-  text-transform: uppercase;
-}
 
 .plantscience {
   font-style: italic;
@@ -200,6 +198,7 @@ form {
 }
 
 .plantname {
-  text-align:center;
+  text-align: center;
   margin: 0 auto;
+  text-transform: uppercase;
 }

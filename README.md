@@ -32,7 +32,8 @@ Black Thumb front-end is on [Surge] (http://black-thumb.surge.sh/)
 1. `rails s`
 1. Open new terminal tab and start back-end server on localhost 3000
 1. `cd client`
-1. Start the front-end server on localhost 3001 (a browser 
+1. Start the front-end server on localhost 3001 (a browser)
+1. `npm i`
 1. `npm start`
 
 ## Wireframes

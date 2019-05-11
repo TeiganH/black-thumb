@@ -41,4 +41,9 @@ Plant.create!(
     plant_image: 'http://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_potted-plant_calathea-medallion_prospect_pale-grey-7_1024x1024.jpg?v=1553190924'
 )
 
+User.create!( 
+    email: 'teigan@gmail.com',
+    password_digest: '$2a$10$EgONtTFkuO.fji6m1Yz0N.hwcRNibQU43RYR0RFn/lxR904Ih2g9W'
+)
+
 

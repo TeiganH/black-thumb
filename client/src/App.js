@@ -3,7 +3,7 @@ import {Route, Link} from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import './App.css';
 import {withRouter} from 'react-router'
-import {loginUser, registerUser, deletePlantFromUser, showPlants, showPlantItem, showUserOnePlant, addUserPlant, showUserPlants, destroyUser, putUser } from './services/api-helper'
+import {loginUser, registerUser, showPlants, showPlantItem, showUserOnePlant, addUserPlant, showUserPlants, destroyUser, putUser } from './services/api-helper'
 import decode from 'jwt-decode'
 import UserPlants from './components/UserPlants'
 import AllPlants from './components/AllPlants'
@@ -35,7 +35,6 @@ class App extends Component {
   this.getPlantItem = this.getPlantItem.bind(this)
   // this.addPlant = this.addPlant.bind(this)
   // this.updatePlant = this.updatePlant.bind(this)
-  // this.deletePlant = this.deletePlant.bind(this)
   this.handleLogin = this.handleLogin.bind(this)
   this.handleLogout = this.handleLogout.bind(this)
   this.handleRegister = this.handleRegister.bind(this)
@@ -164,14 +163,6 @@ class App extends Component {
       }
     }
 
-    // async removePlantFromUser(plant_id) {
-    //   const removePlant = await deletePlantFromUser(this.state.currentUser.sub, plant_id)
-    //   if (removePlant) {
-    //     this.setState(prevState=>({
-    //       userPlants: [...prevState.userPlants, removePlant]
-    //   }))
-    //   }
-    // }
 
   setPlantForm(plantItem) {
     this.setState({

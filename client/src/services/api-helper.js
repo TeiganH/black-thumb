@@ -51,21 +51,6 @@ export const showUserOnePlant = (user_id, id) => {
     .catch(e => e)
 }
 
-// ----- Delete plant from user -----
-export const deletePlantFromUser = (user_id, id) => {
-  const opts = {
-    method: 'PUT',
-    body: JSON.stringify(id),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    }
-  }
-  return fetch(`${baseURL}/users/${user_id}/plants/${id}`, opts)
-  .then(resp =>resp.json())
-  .catch(e => e)
-}
-
 
 //// -----------User api --------
 
